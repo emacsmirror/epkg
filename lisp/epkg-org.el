@@ -61,7 +61,7 @@ Usage:
        (dolist (row rows)
          (unless (eq row 'hline)
            (unless (equal (car row) prev)
-             (cl-incf n))
+             (incf n))
            (setq prev (car row))))
        (append (if nocount
                    (list header)
@@ -73,7 +73,7 @@ Usage:
                              'hline
                            (mapcar (##or % "") row)))
                        (if sort
-                           (cl-sort rows #'string< :key sort)
+                           (compat-call sort rows :lessp #'string< :key sort)
                          rows)))))))
 
 (defun epkg-org-link (name)

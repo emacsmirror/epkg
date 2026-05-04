@@ -9,7 +9,7 @@
 ;; Package-Version: 4.2.0
 ;; Package-Requires: (
 ;;     (emacs  "28.1")
-;;     (compat "30.1")
+;;     (compat "31.0")
 ;;     (closql  "2.4")
 ;;     (emacsql "4.3")
 ;;     (llama   "1.0"))
@@ -376,10 +376,12 @@ features listed in FEATURES.")
                   (push feature* (cdr elt))
                 (push (list provider feature*) deps)))
           (push (list nil feature*) deps))))
-    (cl-sort (mapcar (pcase-lambda (`(,package . ,features))
-                       (cons package (sort features #'string<)))
-                     deps)
-             #'string< :key #'car)))
+    (compat-call
+     sort (mapcar (pcase-lambda (`(,package . ,features))
+                    (cons package
+                          (compat-call sort features :lessp #'string<)))
+                  deps)
+     :lessp #'string< :key #'car)))
 
 (cl-defgeneric epkg-provided-by (feature)
   "Return the name of the package providing FEATURE.
