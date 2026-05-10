@@ -297,6 +297,15 @@ database."
       (emacsql (epkg-db) (apply #'format sql args))
     (apply #'emacsql (epkg-db) sql args)))
 
+(defun epkg--sql1 (sql &rest args)
+  (caar (apply #'epkg-sql sql args)))
+
+(defun epkg--sql-car (sql &rest args)
+  (mapcar #'car (apply #'epkg-sql sql args)))
+
+(defun epkg--sql-cdr (sql &rest args)
+  (mapcar #'cdr (apply #'epkg-sql sql args)))
+
 (defun epkgs (&optional select types)
   "Return a list of `epkg-package' objects, values or rows.
 
