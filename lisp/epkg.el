@@ -506,19 +506,19 @@ to packages for which one of these predicates returns non-nil."
                 (and (derived-mode-p 'magit-status-mode)
                      (looking-at "^[ \t]*[-+]| \\([^ ]+\\)")
                      (match-string 1))
-                (and-let* ((dir (seq-find
-                                 (lambda (dir)
-                                   (and (or (stringp dir)
-                                            (and (boundp dir)
-                                                 (setq dir (symbol-value dir))))
-                                        (file-in-directory-p default-directory
-                                                             dir)))
-                                 epkg--package-parent-dirs)))
+                (and-let ((dir (seq-find
+                                (lambda (dir)
+                                  (and (or (stringp dir)
+                                           (and (boundp dir)
+                                                (setq dir (symbol-value dir))))
+                                       (file-in-directory-p default-directory
+                                                            dir)))
+                                epkg--package-parent-dirs)))
                   (car (file-name-split
                         (file-relative-name
                          default-directory
                          (if (stringp dir) dir (symbol-value dir))))))
-                (and-let* ((symbol (symbol-at-point)))
+                (and-let ((symbol (symbol-at-point)))
                   (compat-call string-trim
                                (symbol-name symbol)
                                ".*/" "\\..*"))))))

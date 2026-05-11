@@ -83,7 +83,7 @@ Usage:
                  (name (oref pkg upstream-name)))
             (format "[[%s][%s/%s]]" repopage user name)
           (format "[[%s]]" repopage))
-      (and-let* ((homepage (oref pkg homepage)))
+      (and-let ((homepage (oref pkg homepage)))
         (cl-typecase pkg
           (epkg-gnu-package
            (format "[[%s][gnu:%s]]" homepage name))
