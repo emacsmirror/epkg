@@ -380,13 +380,15 @@ features listed in FEATURES.")
                               :where (= package $s1)
                               :order-by [(asc feature)]]
                              package))
-      (let ((feature* (if hard feature (symbol-name feature))))
-        (if-let ((provider (epkg-provided-by feature)))
-            (unless (equal provider package)
-              (if-let ((elt (assoc provider deps)))
-                  (push feature* (cdr elt))
-                (push (list provider feature*) deps)))
-          (push (list nil feature*) deps))))
+      (cond-let*
+        [[feature* (if hard feature (symbol-name feature))]
+         [provider (epkg-provided-by feature)]]
+        ((equal provider package))
+        ((not provider)
+         (push (list nil feature*) deps))
+        ([elt (assoc provider deps)]
+         (push feature* (cdr elt)))
+        ((push (list provider feature*) deps))))
     (compat-call
      sort (mapcar (pcase-lambda (`(,package . ,features))
                     (cons package

@@ -222,9 +222,11 @@ use `TYPE*' instead of just `TYPE'."
                     (list (car row)
                           (vconcat
                            (cl-mapcar (lambda (val col)
-                                        (if-let ((pp (nth 5 col)))
-                                            (funcall pp val)
-                                          (if val (format "%s" val) "")))
+                                        (cond-let
+                                          ([pp (nth 5 col)]
+                                           (funcall pp val))
+                                          (val (format "%s" val))
+                                          ("")))
                                       row epkg-list-columns))))
                   rows))
     (tabulated-list-print)
