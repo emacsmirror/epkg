@@ -8,11 +8,12 @@
 
 ;; Package-Version: 4.2.0
 ;; Package-Requires: (
-;;     (emacs  "28.1")
-;;     (compat "31.0")
-;;     (closql  "2.4")
-;;     (emacsql "4.3")
-;;     (llama   "1.0"))
+;;     (emacs   "28.1")
+;;     (compat  "31.0")
+;;     (cond-let "1.1")
+;;     (closql   "2.4")
+;;     (emacsql  "4.3")
+;;     (llama    "1.0"))
 
 ;; SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -42,6 +43,7 @@
 ;;; Code:
 
 (require 'compat)
+(require 'cond-let)
 (require 'llama)
 (require 'seq)
 (require 'subr-x)
@@ -539,7 +541,18 @@ to packages for which one of these predicates returns non-nil."
 (require 'epkg-elpa)
 ;; Local Variables:
 ;; read-symbol-shorthands: (
-;;   ("partial" . "llama--left-apply-partially")
-;;   ("rpartial" . "llama--right-apply-partially"))
+;;   ("and$"       . "cond-let--and$")
+;;   ("thread$"    . "cond-let--thread$")
+;;   ("when$"      . "cond-let--when$")
+;;   ("and-let*"   . "cond-let--and-let*")
+;;   ("and-let"    . "cond-let--and-let")
+;;   ("if-let*"    . "cond-let--if-let*")
+;;   ("if-let"     . "cond-let--if-let")
+;;   ("when-let*"  . "cond-let--when-let*")
+;;   ("when-let"   . "cond-let--when-let")
+;;   ("while-let*" . "cond-let--while-let*")
+;;   ("while-let"  . "cond-let--while-let")
+;;   ("partial"    . "llama--left-apply-partially")
+;;   ("rpartial"   . "llama--right-apply-partially"))
 ;; End:
 ;;; epkg.el ends here

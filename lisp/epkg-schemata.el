@@ -178,7 +178,18 @@
 (provide 'epkg-schemata)
 ;; Local Variables:
 ;; read-symbol-shorthands: (
-;;   ("partial" . "llama--left-apply-partially")
-;;   ("rpartial" . "llama--right-apply-partially"))
+;;   ("and$"       . "cond-let--and$")
+;;   ("thread$"    . "cond-let--thread$")
+;;   ("when$"      . "cond-let--when$")
+;;   ("and-let*"   . "cond-let--and-let*")
+;;   ("and-let"    . "cond-let--and-let")
+;;   ("if-let*"    . "cond-let--if-let*")
+;;   ("if-let"     . "cond-let--if-let")
+;;   ("when-let*"  . "cond-let--when-let*")
+;;   ("when-let"   . "cond-let--when-let")
+;;   ("while-let*" . "cond-let--while-let*")
+;;   ("while-let"  . "cond-let--while-let")
+;;   ("partial"    . "llama--left-apply-partially")
+;;   ("rpartial"   . "llama--right-apply-partially"))
 ;; End:
 ;;; epkg-schemata.el ends here
