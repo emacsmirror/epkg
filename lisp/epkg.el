@@ -148,8 +148,8 @@ In the `epkg-repository', pull the master branch and reload
 the Epkg database.  Return a connection to the updated Epkg
 database."
   (interactive)
-  (when-let ((db (epkg-db t)))
-    (emacsql-close db))
+  (when$ (epkg-db t)
+    (emacsql-close $))
   (let ((default-directory epkg-repository))
     (message "Pulling Epkg database...")
     (epkg--call-git "pull" "--no-recurse-submodules" "origin" "master")

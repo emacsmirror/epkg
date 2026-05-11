@@ -299,8 +299,8 @@ NAME is the name of a package, a string.  ELPA is one of `gnu',
             (list :url (oref rcp url))
           (list :repo (oref rcp repo)))
       ,@(mapcan (lambda (slot)
-                  (and-let (eieio-oref rcp slot)))
-                    (list (intern (format ":%s" slot)) value)))
+                  (and$ (eieio-oref rcp slot)
+                        (list (intern (format ":%s" slot)) $)))
                 '(files branch commit version-regexp old-names)))))
 
 (defun epkg-melpa--recipe-type (rcp)
