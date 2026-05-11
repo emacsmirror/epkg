@@ -15,11 +15,14 @@ ELCS  = $(ELS:.el=.elc)
 
 DEPS  = closql
 DEPS += compat
+DEPS += cond-let
 DEPS += emacsql
 DEPS += llama
+DEPS += seq
 # Optional:
-DEPS += cond-let
 DEPS += magit/lisp
+DEPS += transient/lisp
+DEPS += with-editor/lisp
 
 LOAD_PATH     ?= $(addprefix -L ../../,$(DEPS))
 LOAD_PATH     += -L .
