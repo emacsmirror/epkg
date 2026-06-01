@@ -1,4 +1,8 @@
 # -*- mode: org -*-
+* v4.2.1    2026-06-01
+
+- Began using Cond-Let.
+
 * v4.2.0    2026-05-01
 
 - Added ~epkg--borg-clone-url~ for use in Borg.
