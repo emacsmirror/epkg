@@ -206,7 +206,7 @@ To list all packages of a certain type as well as its subtypes
 use `TYPE*' instead of just `TYPE'."
   (interactive (list (epkg-read-type "List packages of type: " nil t)))
   (epkg--list-packages
-   (epkg-sql [:select $i1 :from packages :where class :in $v2]
+   (epkg-sql [:select $i1 :from packages :where (in class $v2)]
              (epkg--list-columns-vector)
              (closql-where-class-in
               (if (eq type 'all*)
