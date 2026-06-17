@@ -35,7 +35,7 @@
 
 ;;; Options
 
-(defcustom epkg-list-exclude-types '(shelved)
+(defcustom epkg-list-exclude-types '(shelved orphaned)
   "Package types that are excluded from most package lists.
 
 Most commands that list packages exclude any package whose
