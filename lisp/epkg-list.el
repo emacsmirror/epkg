@@ -182,13 +182,16 @@ is used."
                      current-prefix-arg))
   (epkg--list-packages
    (let ((emailp (string-search "@" author)))
-     (epkg-sql [:select :distinct $i1
-                :from [packages authors maintainers]
-                :where (and (in class $v2)
-                            (or (and (= authors:package packages:name)
-                                     (= $i3 $s5))
-                                (and (= maintainers:package packages:name)
-                                     (= $i4 $s5))))]
+     (epkg-sql [:select $i1 :from packages
+                :join authors :on (= $i3 $s5)
+                :where (and (= authors:package packages:name)
+                            (in class $v2))
+                :union
+                :select $i1 :from packages
+                :join maintainers :on (= $i4 $s5)
+                :where (and (= maintainers:package packages:name)
+                            (in class $v2))
+                :order-by [(asc packages:name)]]
                (epkg--list-columns-vector t)
                (epkg--list-where-class-in all)
                (if emailp 'authors:email 'authors:name)
