@@ -181,19 +181,19 @@ is used."
   (interactive (list (read-string "List packages by author: ")
                      current-prefix-arg))
   (epkg--list-packages
-   (let ((emailp (string-search "@" author)))
-     (epkg-sql [:select $i1 :from packages
-                :join authors :on (= $i3 $s5)
-                :where (and (= authors:package packages:name)
-                            (in class $v2))
-                :union
-                :select $i1 :from packages
-                :join maintainers :on (= $i4 $s5)
-                :where (and (= maintainers:package packages:name)
-                            (in class $v2))
-                :order-by [(asc packages:name)]]
+   (let ((emailp (string-search "@" author))
+         (filter (and (not all)
+                      (apply #'epkg--list-class-filter
+                             'not epkg-list-exclude-types))))
+     (epkg-sql `[:select $i1 :from packages
+                 :join authors :on (= $i2 $s4)
+                 :where (and (= authors:package packages:name) ,@filter)
+                 :union
+                 :select $i1 :from packages
+                 :join maintainers :on (= $i3 $s4)
+                 :where (and (= maintainers:package packages:name) ,@filter)
+                 :order-by [(asc packages:name)]]
                (epkg--list-columns-vector t)
-               (epkg--list-where-class-in all)
                (if emailp 'authors:email 'authors:name)
                (if emailp 'maintainers:email 'maintainers:name)
                author))))
@@ -279,6 +279,12 @@ use `TYPE*' instead of just `TYPE'."
      (mapcar (##closql--expand-abbrev 'epkg-package %)
              (cl-set-difference (closql--list-subabbrevs 'epkg-package)
                                 epkg-list-exclude-types)))))
+
+(defun epkg--list-class-filter (&rest classes)
+  (cond ((eq (car classes) 'not)
+         `((not (in class [,@classes]))))
+        (classes
+         `((in class [,@classes])))))
 
 (defvar-local epkg-list--download-column nil)
 
